@@ -28,7 +28,6 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <LangVersion>7.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,7 +37,6 @@
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <LangVersion>7.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -65,17 +63,19 @@
   <ItemGroup>
     <Compile Include="Assets\MapCreator.cs" />
     <Compile Include="Assets\Scripts\ButtonsManager.cs" />
+    <Compile Include="Assets\Scripts\MovementScript.cs" />
+    <Compile Include="Assets\Scripts\Node.cs" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/16025091.UNI/Documents/AStar v2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/16025091.UNI/Desktop/AStar v2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/16025091.UNI/Documents/AStar v2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/16025091.UNI/Desktop/AStar v2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/16025091.UNI/Documents/AStar v2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/16025091.UNI/Desktop/AStar v2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/16025091.UNI/Documents/AStar v2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/16025091.UNI/Desktop/AStar v2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
