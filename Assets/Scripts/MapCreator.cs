@@ -9,12 +9,16 @@ public class MapCreator : MonoBehaviour
     public Transform[] parents;
 
     public ButtonsManager buttons;
+    GameObject target;
+
+    private void Awake()
+    {
+        target = GameObject.Find("Target");
+    }
     private void Update()
     {
         if (buttons.getActiveButton() && Input.GetMouseButtonDown(0))
         {
-
-
 
             Vector3 mousePos = Input.mousePosition;
             Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -22,11 +26,11 @@ public class MapCreator : MonoBehaviour
 
             if (pos.x > -11 && pos.x < 11 && pos.y < 5 && pos.y > -5)
             {
-                for (int i = 0; i < objects.Length; i++)
+                for (int i = 0; i < objects.Length-1; i++)
                 {
-                    if (buttons.activeButton == buttons.buttons[i]) Instantiate(objects[i], pos, Quaternion.identity, parents[i]);
-                    
+                    if (buttons.activeButton == buttons.buttons[i]) Instantiate(objects[i], pos, Quaternion.identity, parents[i]);                  
                 }
+                if (buttons.activeButton == buttons.buttons[5]) target.transform.position = pos;
             }
             
 

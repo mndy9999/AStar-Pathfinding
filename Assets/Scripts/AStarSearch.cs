@@ -50,7 +50,7 @@ public class AStarSearch : MonoBehaviour {
             {
                 if (!node.walkable || closedSet.Contains(node)) { continue; }
                 int moveCost = currentNode.gCost + getDistance(currentNode, node) + node.penalty;
-                if(moveCost<node.gCost || !openSet.Contains(node))
+                if(moveCost < node.gCost || !openSet.Contains(node))
                 {
                     node.gCost = moveCost;
                     node.hCost = getDistance(node, endNode);
@@ -74,7 +74,7 @@ public class AStarSearch : MonoBehaviour {
 
         grid.path = path;
 
-        Debug.Log(path);
+       
     }
 
     int getDistance(Node a, Node b)

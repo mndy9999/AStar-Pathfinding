@@ -5,15 +5,17 @@ using UnityEngine.Tilemaps;
 
 public class GridSetup : MonoBehaviour {
 
+    
     [System.Serializable]
     public struct Terrain{
         public LayerMask mask;
         public int penalty;
     }
 
-    public Terrain[] terrain;
+    
     public Transform player;
     public LayerMask unwalkableMask;
+
     public Vector2 gridWorldSize;
     public float nodeRadius;
     public float nodeDiameter;
@@ -23,21 +25,33 @@ public class GridSetup : MonoBehaviour {
     public TileBase pathTile;
 
     Node[,] grid;
+    
+    public Terrain[] walkableRegions;
+    Dictionary<int, int> walkableDic = new Dictionary<int, int>();
+    LayerMask walkableMask;
 
     int gridSizeX, gridSizeY;
 
-    private void Start()
+    private void Awake()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+
+        foreach(Terrain terrain in walkableRegions)
+        {
+            walkableMask.value |= terrain.mask.value;
+            walkableDic.Add((int)Mathf.Log(terrain.mask.value, 2), terrain.penalty);
+        }
         drawGrid();
         
     }
     private void Update()
     {
         drawGrid();
+        map.ClearAllTiles();
         drawPath();
+        
     }
 
     void drawGrid()
@@ -53,8 +67,14 @@ public class GridSetup : MonoBehaviour {
                 bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
 
                 int moveCost = 0;
-
-                //raycast
+                if (walkable)
+                {
+                    RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.down, 100, walkableMask);
+                    if(hit)
+                    {
+                        walkableDic.TryGetValue(hit.collider.gameObject.layer, out moveCost);
+                    }
+                }
                 grid[x, y] = new Node(walkable, worldPoint, x, y, moveCost);
             }
         }
@@ -62,12 +82,13 @@ public class GridSetup : MonoBehaviour {
 
     void drawPath()
     {
-        map.ClearAllTiles();
+        int totalCost = 0;
         if (path != null)
         {
             foreach(Node node in path)
             {
                 map.SetTile(new Vector3Int((int)node.worldPos.x-1, (int)node.worldPos.y-1, 1), pathTile);
+                totalCost += node.penalty;
             }
         }
     }

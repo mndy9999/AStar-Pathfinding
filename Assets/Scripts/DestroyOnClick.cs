@@ -9,7 +9,7 @@ public class DestroyOnClick : MonoBehaviour {
     private void OnMouseDown()
     {
         buttons = Component.FindObjectOfType<ButtonsManager>();
-        if (Input.GetMouseButtonDown(0) && buttons.activeButton == buttons.buttons[3])
+        if (Input.GetMouseButtonDown(0) && buttons.activeButton == buttons.buttons[4])
         {
             Destroy(gameObject);
         }
