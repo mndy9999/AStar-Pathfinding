@@ -23,19 +23,13 @@ public class MapCreator : MonoBehaviour
             Vector3 mousePos = Input.mousePosition;
             Vector3 objectPos = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 pos = new Vector3(Mathf.RoundToInt(objectPos.x), Mathf.RoundToInt(objectPos.y));
-
-            int j = 0;
-            do
+            Debug.Log("Hi");
+            for (int i = 0; i < objects.Length; i++)
             {
+                if (buttons.activeButton == buttons.buttons[i]) Instantiate(objects[i], pos, Quaternion.identity, waterParent);
+            }
 
 
-                for (int i = 0; i < objects.Length; i++)
-                {
-                    if (buttons.activeButton == buttons.buttons[i]) Instantiate(objects[i], pos, Quaternion.identity, waterParent);
-                }
-                j++;
-
-            } while (j < waterParent.childCount);
 
         }
     }

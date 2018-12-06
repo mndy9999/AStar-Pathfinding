@@ -8,7 +8,7 @@ public class MovementScript : MonoBehaviour {
     Vector3 targetPos;
     public void checkNeighbours()
     {
-        Collider2D[] neighbours = Physics2D.OverlapBoxAll(transform.position, new Vector2(1, 1), 360);
+        Collider2D[] neighbours = Physics2D.OverlapBoxAll(transform.position, new Vector2(2, 2), 360);
 
         if (neighbours.Length > 1)
         {

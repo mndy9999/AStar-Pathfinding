@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour {
 
+    public Transform player;
     public LayerMask unwalkableMask;
     public Vector2 gridWorldSize;
     public float nodeRadius;
@@ -32,10 +33,24 @@ public class Grid : MonoBehaviour {
             for(int y = 0; y < gridSizeY; y++)
             {
                 Vector2 worldPoint = bottomLeft + Vector2.right * (x * nodeDiameter + nodeRadius) + Vector2.up * (y * nodeDiameter + nodeRadius);
-                bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, unwalkableMask));
+                bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
                 grid[x, y] = new Node(walkable, worldPoint);
             }
         }
+    }
+
+    public Node getNodeFromWorldPoint(Vector2 worldPos)
+    {
+        float percentX = (worldPos.x + gridWorldSize.x / 2) / gridWorldSize.x;
+        float percentY = (worldPos.y + gridWorldSize.y / 2) / gridWorldSize.y;
+
+        percentX = Mathf.Clamp01(percentX);
+        percentY = Mathf.Clamp01(percentY);
+
+        int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
+        int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+
+        return grid[x, y];
     }
 
     private void OnDrawGizmos()
@@ -43,10 +58,12 @@ public class Grid : MonoBehaviour {
         Gizmos.DrawWireCube(transform.position, new Vector2(gridWorldSize.x, gridWorldSize.y));
         if (grid != null)
         {
+            Node playerNode = getNodeFromWorldPoint(player.position); 
             foreach(Node node in grid)
             {
                 Gizmos.color = (node.walkable) ? Color.white : Color.red;
-                Gizmos.DrawWireCube(node.worldPos, Vector2.one * nodeDiameter);
+                if (node == playerNode) { Gizmos.color = Color.cyan; }
+                Gizmos.DrawWireCube(node.worldPos, Vector2.one * (nodeDiameter -0.1f));
             }
         }
         
