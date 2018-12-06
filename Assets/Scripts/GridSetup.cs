@@ -1,14 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GridSetup : MonoBehaviour {
 
+    [System.Serializable]
+    public struct Terrain{
+        public LayerMask mask;
+        public int penalty;
+    }
+
+    public Terrain[] terrain;
     public Transform player;
     public LayerMask unwalkableMask;
     public Vector2 gridWorldSize;
     public float nodeRadius;
     public float nodeDiameter;
+
+    public List<Node> path;
+    public Tilemap map;
+    public TileBase pathTile;
 
     Node[,] grid;
 
@@ -19,12 +31,13 @@ public class GridSetup : MonoBehaviour {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-
+        drawGrid();
         
     }
     private void Update()
     {
         drawGrid();
+        drawPath();
     }
 
     void drawGrid()
@@ -38,7 +51,23 @@ public class GridSetup : MonoBehaviour {
             {
                 Vector2 worldPoint = bottomLeft + Vector2.right * (x * nodeDiameter + nodeRadius) + Vector2.up * (y * nodeDiameter + nodeRadius);
                 bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
-                grid[x, y] = new Node(walkable, worldPoint, x, y);
+
+                int moveCost = 0;
+
+                //raycast
+                grid[x, y] = new Node(walkable, worldPoint, x, y, moveCost);
+            }
+        }
+    }
+
+    void drawPath()
+    {
+        map.ClearAllTiles();
+        if (path != null)
+        {
+            foreach(Node node in path)
+            {
+                map.SetTile(new Vector3Int((int)node.worldPos.x-1, (int)node.worldPos.y-1, 1), pathTile);
             }
         }
     }
@@ -79,7 +108,7 @@ public class GridSetup : MonoBehaviour {
         return grid[x, y];
     }
 
-    public List<Node> path;
+    
     private void OnDrawGizmos()
     {
         

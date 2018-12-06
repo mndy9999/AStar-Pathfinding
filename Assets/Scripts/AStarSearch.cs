@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class AStarSearch : MonoBehaviour {
 
     List<Node> openSet;
@@ -48,7 +49,7 @@ public class AStarSearch : MonoBehaviour {
             foreach(Node node in grid.getNeighbours(currentNode))
             {
                 if (!node.walkable || closedSet.Contains(node)) { continue; }
-                int moveCost = currentNode.gCost + getDistance(currentNode, node);
+                int moveCost = currentNode.gCost + getDistance(currentNode, node) + node.penalty;
                 if(moveCost<node.gCost || !openSet.Contains(node))
                 {
                     node.gCost = moveCost;
