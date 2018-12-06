@@ -2,7 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node : MonoBehaviour {
+public class Node {
+    public bool walkable;
+    public Vector2 worldPos;
 
+    public Node(bool _walkable, Vector3 _worldPos)
+    {
+        walkable = _walkable;
+        worldPos = _worldPos;
+    }
 	
 }
