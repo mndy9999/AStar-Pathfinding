@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Diagnostics;
+using System;
 
 
 public class AStarSearch : MonoBehaviour {
@@ -85,4 +87,6 @@ public class AStarSearch : MonoBehaviour {
         if(x > y) { return 14 * y + 10 * (x - y); }
         else { return 14 * x + 10 * (y - x); }
     }
+
+
 }
