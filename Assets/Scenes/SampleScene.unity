@@ -1014,6 +1014,13 @@ MonoBehaviour:
   - {fileID: 1028839715}
   - {fileID: 2070878324}
   - {fileID: 1849562976}
+  cursorTextures:
+  - {fileID: 2800000, guid: 370bc927d2b659d499ce79863d3d41e8, type: 3}
+  - {fileID: 2800000, guid: df049dbb59cb6b4448b3af420b3c013d, type: 3}
+  - {fileID: 2800000, guid: ce56462c592c0bc479e3bb06291c277f, type: 3}
+  - {fileID: 2800000, guid: 7e6498c21b2924c4fa62aa5e66dfb035, type: 3}
+  - {fileID: 2800000, guid: c6c2492ede3d49f4a9813f5731541501, type: 3}
+  - {fileID: 2800000, guid: 3273bb4df9473cf44a40261dc9dd1fbd, type: 3}
   activeButton: {fileID: 0}
 --- !u!1 &1321897580
 GameObject:
