@@ -34,10 +34,31 @@ public class Grid : MonoBehaviour {
             {
                 Vector2 worldPoint = bottomLeft + Vector2.right * (x * nodeDiameter + nodeRadius) + Vector2.up * (y * nodeDiameter + nodeRadius);
                 bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
-                grid[x, y] = new Node(walkable, worldPoint);
+                grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
     }
+
+    public List<Node> getNeighbours(Node node)
+    {
+        List<Node> neighbours = new List<Node>();
+        for(int x = 0; x <= 1; x++)
+        {
+            for(int y = 0; y <= 1; y++)
+            {
+                if(x == 0 && y == 0) { continue; }
+                int checkX = node.gridX + x;
+                int checkY = node.gridY + y;
+
+                if(checkX >=0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                {
+                    neighbours.Add(grid[checkX, checkY]);
+                }
+            }
+        }
+        return neighbours;
+    }
+
 
     public Node getNodeFromWorldPoint(Vector2 worldPos)
     {
@@ -53,6 +74,7 @@ public class Grid : MonoBehaviour {
         return grid[x, y];
     }
 
+    public List<Node> path;
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector2(gridWorldSize.x, gridWorldSize.y));
@@ -63,6 +85,7 @@ public class Grid : MonoBehaviour {
             {
                 Gizmos.color = (node.walkable) ? Color.white : Color.red;
                 if (node == playerNode) { Gizmos.color = Color.cyan; }
+                if (path.Contains(node)) { Gizmos.color = Color.green; }
                 Gizmos.DrawWireCube(node.worldPos, Vector2.one * (nodeDiameter -0.1f));
             }
         }
