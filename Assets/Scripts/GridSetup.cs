@@ -20,6 +20,10 @@ public class GridSetup : MonoBehaviour {
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
 
+        
+    }
+    private void Update()
+    {
         drawGrid();
     }
 
@@ -78,6 +82,7 @@ public class GridSetup : MonoBehaviour {
     public List<Node> path;
     private void OnDrawGizmos()
     {
+        
         Gizmos.DrawWireCube(transform.position, new Vector2(gridWorldSize.x, gridWorldSize.y));
         if (grid != null)
         {

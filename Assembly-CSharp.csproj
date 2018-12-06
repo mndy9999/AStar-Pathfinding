@@ -63,7 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AStarSearch.cs" />
     <Compile Include="Assets\Scripts\ButtonsManager.cs" />
-    <Compile Include="Assets\Scripts\Grid.cs" />
+    <Compile Include="Assets\Scripts\DestroyOnClick.cs" />
     <Compile Include="Assets\Scripts\GridSetup.cs" />
     <Compile Include="Assets\Scripts\MapCreator.cs" />
     <Compile Include="Assets\Scripts\MovementScript.cs" />

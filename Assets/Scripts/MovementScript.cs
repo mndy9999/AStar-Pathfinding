@@ -6,19 +6,6 @@ public class MovementScript : MonoBehaviour {
 
     char direction;
     Vector3 targetPos;
-    public void checkNeighbours()
-    {
-        Collider2D[] neighbours = Physics2D.OverlapBoxAll(transform.position, new Vector2(2, 2), 360);
-
-        if (neighbours.Length > 1)
-        {
-            Debug.Log("stuff around");
-        }
-        else
-        {
-            Debug.Log("free");
-        }
-    }
 
     void move()
     {
@@ -37,9 +24,8 @@ public class MovementScript : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.anyKeyDown) { move(); }
+        if (Input.anyKeyDown && !Input.GetMouseButtonDown(0)) { move(); }
 
-        checkNeighbours();
     }
 
 }

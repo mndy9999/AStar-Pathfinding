@@ -17,6 +17,7 @@ public class ButtonsManager : MonoBehaviour
     private void Update()
     {
         if(activeButton) Cursor.SetCursor(activeButton.image.sprite.texture, Vector3.zero, CursorMode.Auto);
+        else { Cursor.SetCursor(null, Vector3.zero, CursorMode.Auto); }
     }
 
     public Button getActiveButton() { return activeButton; }

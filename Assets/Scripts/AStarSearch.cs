@@ -12,15 +12,9 @@ public class AStarSearch : MonoBehaviour {
 
     public GridSetup grid;
 
-    private void Awake()
-    {
-       // grid = GetComponent<GridSetup>();        
-    }
-
     public void Update()
     {
         search(startPos.position, endPos.position);
-
     }
 
     void search(Vector2 startPos, Vector2 endPos)
@@ -63,7 +57,6 @@ public class AStarSearch : MonoBehaviour {
                     if (!openSet.Contains(node)) { openSet.Add(node); }
                 }
             }
-            Debug.Log("Current node: " + currentNode.worldPos);
         }
     }
 
