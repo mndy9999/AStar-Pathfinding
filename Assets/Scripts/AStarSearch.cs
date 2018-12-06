@@ -10,19 +10,17 @@ public class AStarSearch : MonoBehaviour {
     public Transform startPos;
     public Transform endPos;
 
-    Grid grid;
-    Node startNode;
-    Node endNode;
-    Node currentNode;
+    public GridSetup grid;
 
-    private void Start()
+    private void Awake()
     {
-        grid = GetComponent<Grid>();        
+       // grid = GetComponent<GridSetup>();        
     }
 
     public void Update()
     {
         search(startPos.position, endPos.position);
+
     }
 
     void search(Vector2 startPos, Vector2 endPos)
@@ -30,32 +28,33 @@ public class AStarSearch : MonoBehaviour {
         openSet = new List<Node>();
         closedSet = new List<Node>();
 
-        startNode = grid.getNodeFromWorldPoint(startPos);
-        endNode = grid.getNodeFromWorldPoint(endPos);
+        Node startNode = grid.getNodeFromWorldPoint(startPos);
+        Node endNode = grid.getNodeFromWorldPoint(endPos);
 
         openSet.Add(startNode);
         
         while(openSet.Count > 0)
         {
-            currentNode = openSet[0];
-            for(int i=0; i < openSet.Count;i++)
+            Node currentNode = openSet[0];
+            for(int i=1; i < openSet.Count;i++)
             {
-                if(openSet[i].getFCost() < currentNode.getFCost() || (openSet[i].getFCost() == currentNode.getFCost() && openSet[i].hCost < currentNode.hCost))
+                if(openSet[i].getFCost() < currentNode.getFCost() || openSet[i].getFCost() == currentNode.getFCost() )
                 {
                     
-                    currentNode = openSet[i];   
+                    if(openSet[i].hCost < currentNode.hCost){ currentNode = openSet[i]; }
+                      
                 }
             }
 
             openSet.Remove(currentNode);
             closedSet.Add(currentNode);
 
-            if (currentNode == endNode) { getPath(startNode, endNode); break; }
+            if (currentNode == endNode) { getPath(startNode, endNode); return; }
 
             foreach(Node node in grid.getNeighbours(currentNode))
             {
                 if (!node.walkable || closedSet.Contains(node)) { continue; }
-                int moveCost = currentNode.gCost * getDistance(currentNode, node);
+                int moveCost = currentNode.gCost + getDistance(currentNode, node);
                 if(moveCost<node.gCost || !openSet.Contains(node))
                 {
                     node.gCost = moveCost;
@@ -64,11 +63,11 @@ public class AStarSearch : MonoBehaviour {
                     if (!openSet.Contains(node)) { openSet.Add(node); }
                 }
             }
-
+            Debug.Log("Current node: " + currentNode.worldPos);
         }
     }
 
-    void getPath(Node _startNode, Node _endNode)
+    void getPath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
         Node node = endNode;
@@ -80,6 +79,8 @@ public class AStarSearch : MonoBehaviour {
         path.Reverse();
 
         grid.path = path;
+
+        Debug.Log(path);
     }
 
     int getDistance(Node a, Node b)

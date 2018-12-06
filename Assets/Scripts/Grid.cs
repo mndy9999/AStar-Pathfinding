@@ -62,6 +62,7 @@ public class Grid : MonoBehaviour {
 
     public Node getNodeFromWorldPoint(Vector2 worldPos)
     {
+
         float percentX = (worldPos.x + gridWorldSize.x / 2) / gridWorldSize.x;
         float percentY = (worldPos.y + gridWorldSize.y / 2) / gridWorldSize.y;
 
