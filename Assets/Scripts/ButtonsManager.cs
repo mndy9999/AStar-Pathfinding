@@ -7,6 +7,7 @@ public class ButtonsManager : MonoBehaviour
 {
 
     public Button[] buttons;
+    public Texture2D[] cursorTextures;
     public Button activeButton;
 
     public void setActiveMoutain() { activeButton = (activeButton == buttons[3]) ? null : buttons[3]; }
@@ -18,8 +19,13 @@ public class ButtonsManager : MonoBehaviour
 
     private void Update()
     {
-        if(activeButton) Cursor.SetCursor(activeButton.image.sprite.texture, Vector2.zero, CursorMode.Auto);
-        else { Cursor.SetCursor(null, Vector3.zero, CursorMode.Auto); }
+        if(activeButton)
+            for(int i=0;i<cursorTextures.Length;i++)
+            {
+                if(activeButton == buttons[i]) Cursor.SetCursor(cursorTextures[i], Vector2.zero, CursorMode.Auto);
+            }
+       
+        else { Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto); }
     }
 
     public Button getActiveButton() { return activeButton; }
