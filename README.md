@@ -12,3 +12,11 @@ The map can consist of multiple types of terrain, each of them having an associa
   5. Water - cannot be traversed
   
   
+Mountains Only:
+![Mountains Only](https://github.com/mndy9999/AStar-v2/blob/master/mountains_only.png)
+
+Dead End:
+![Dead End](https://github.com/mndy9999/AStar-v2/blob/master/dead_end.png)
+
+Custom Map:
+![Custom Map](https://github.com/mndy9999/AStar-v2/blob/master/path.png)
